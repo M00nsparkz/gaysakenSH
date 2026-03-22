@@ -27,9 +27,9 @@ local emotes = Tab:AddSection({
 	Name = "Emotes"
 })
 
-local anims = Tab:AddSection({
-	Name = "Anim Changer"
-})
+--local anims = Tab:AddSection({
+--	Name = "Anim Changer"
+--})
 
 emotes:AddDropdown({
 	Name = "Emote",
