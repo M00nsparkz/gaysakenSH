@@ -11,6 +11,8 @@ local function closecallback()
     print("GaysakenSH window closed")
 end
 
+OrionLib:SetLanguage("en-us")
+
 local Window = OrionLib:MakeWindow({Name = "GaysakenSH", HidePremium = false, SaveConfig = true, ConfigFolder = "gaysaken"})
 
 local Tab = Window:MakeTab({
@@ -45,8 +47,11 @@ emotes:AddButton({
             animid = "104113460162561"
         elseif animValue == "Custom" then
             warn("Not implemented yet")
+            return
         end
-        anim:PlayPriorAnim(animid)
+        if animid then  -- ✅ Проверяем перед вызовом
+            anim.PlayPriorAnim(animid)
+        end
   	end    
 })
 

@@ -13,6 +13,10 @@ local activeTracks: { AnimationTrack } = {}
 local isPriorityMode = false
 
 local function PlayPriorAnim(character: Model, animId: string): boolean
+	 if not animId or animId == "" then  -- ✅ Проверка в начале
+        warn("[PlayPriorAnim] Invalid animId!")
+        return false
+    end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then return false end
 
