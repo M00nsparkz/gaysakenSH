@@ -11,7 +11,7 @@ local function closecallback()
     print("GaysakenSH window closed")
 end
 
-local Window = OrionLib:MakeWindow({Name = "GaysakenSH", HidePremium = false, SaveConfig = true, ConfigFolder = "gaysaken", CloseCallback = closecallback})
+local Window = OrionLib:MakeWindow({Name = "GaysakenSH", HidePremium = false, SaveConfig = true, ConfigFolder = "gaysaken"})
 
 local Tab = Window:MakeTab({
 	Name = "Emotes/Anims",
