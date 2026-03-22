@@ -1,9 +1,10 @@
 --!strict
+
+--AnimCtrl.lua
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
--- ⚙️ НАСТРОЙКИ
-local PRIORITY_ANIM_ID = "123456789" -- ID твоей анимации (только цифры!)
 local BLEND_TIME = 0 -- Плавность старта/остановки
 local LOOP_ANIMATION = true -- Зациклить анимацию
 
@@ -11,8 +12,7 @@ local LOOP_ANIMATION = true -- Зациклить анимацию
 local activeTracks: { AnimationTrack } = {}
 local isPriorityMode = false
 
--- 🔥 ГЛАВНАЯ ФУНКЦИЯ: запуск приоритетной анимации
-local function PlayPriorityAnimation(character: Model, animId: string): boolean
+local function PlayPriorAnim(character: Model, animId: string): boolean
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then return false end
 
@@ -42,7 +42,7 @@ local function PlayPriorityAnimation(character: Model, animId: string): boolean
 	return true
 end
 
--- 🔥 ФУНКЦИЯ ОСТАНОВКИ: вызывай отовсюду
+
 function StopAllAnimations()
 	for i = #activeTracks, 1, -1 do
 		local track = activeTracks[i]
@@ -54,14 +54,14 @@ function StopAllAnimations()
 	isPriorityMode = false
 end
 
--- 🔁 Обработчик респавна
+
 local function onCharacterAdded(character: Model)
 	character:WaitForChild("HumanoidRootPart", 10)
 	task.wait(0.2) -- Стабилизация
 	
 	-- Если нужно — сразу запускаем приоритетную анимацию
 	-- Если нет — закомментируй строку ниже
-	PlayPriorityAnimation(character, PRIORITY_ANIM_ID)
+	--PlayPriorityAnimation(character, PRIORITY_ANIM_ID)
 end
 
 LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
@@ -73,31 +73,16 @@ if LocalPlayer.Character then
 	end)
 end
 
--- 🌐 ДЕЛАЕМ ФУНКЦИИ ДОСТУПНЫМИ ИЗ ДРУГИХ СКРИПТОВ
--- Вариант 1: через _G (просто, но менее надёжно)
-_G.StopAllAnim = StopAllAnimations
-_G.PlayPriorityAnim = function(animId: string?)
-	local char = LocalPlayer.Character
-	if char then
-		PlayPriorityAnimation(char, animId or PRIORITY_ANIM_ID)
-	end
-end
-
--- Вариант 2: через RemoteEvent (если нужно вызывать с сервера)
--- Создай RemoteEvent в ReplicatedStorage с именем "AnimControl"
--- local ReplicatedStorage = game:GetService("ReplicatedStorage")
--- local remote = ReplicatedStorage:WaitForChild("AnimControl", 5)
--- if remote then
--- 	remote.OnClientEvent:Connect(function(cmd: string, animId: string?)
--- 		if cmd == "stop" then
--- 			StopAllAnimations()
--- 		elseif cmd == "play" and animId then
--- 			PlayPriorityAnimation(LocalPlayer.Character, animId)
--- 		end
--- 	end)
--- end
-
--- 🧹 Автоочистка при удалении персонажа
 LocalPlayer.CharacterRemoving:Connect(function()
 	StopAllAnimations()
 end)
+
+return {
+	StopAllAnim = StopAllAnimations,
+	PlayPriorAnim = function(animId: string?)
+		local char = LocalPlayer.Character
+		if char and animId then
+			PlayPriorAnim(char, animId)
+		end
+	end
+}
