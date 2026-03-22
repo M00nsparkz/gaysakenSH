@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RQ-Feng/Orion/refs/heads/main/main.lua')))()
 local anim = loadstring(game:HttpGet(('https://raw.githubusercontent.com/M00nsparkz/gaysakenSH/main/AnimCtrl.lua')))()
 
 local function closecallback()
