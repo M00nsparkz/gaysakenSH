@@ -30,21 +30,28 @@ local emotes = Tab:AddSection({
 --local anims = Tab:AddSection({
 --	Name = "Anim Changer"
 --})
-
+local animValue = nil
 emotes:AddDropdown({
 	Name = "Emote",
 	Default = "DSit",
 	Options = {"DSit", "Custom"},
-	Callback = function(Value)
-		print(Value)
-        local animid = nil
-        if Value == "DSit" then
+	Callback = function(AnimValue)
+		print(AnimValue)
+        animValue = AnimValue
+	end    
+})
+
+Tab:AddButton({
+	Name = "Start",
+	Callback = function()
+      	local animid = nil
+        if animValue == "DSit" then
             animid = "104113460162561"
-        elseif Value == "Custom" then
+        elseif animValue == "Custom" then
             warn("Not implemented yet")
         end
         anim:PlayPriorAnim(animid)
-	end    
+  	end    
 })
 
 
