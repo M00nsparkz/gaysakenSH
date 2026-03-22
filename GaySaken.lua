@@ -14,13 +14,9 @@ end
 local Window = OrionLib:MakeWindow({Name = "GaysakenSH", HidePremium = false, SaveConfig = true, ConfigFolder = "gaysaken", CloseCallback = closecallback})
 
 local Tab = Window:MakeTab({
-	Name = "General",
+	Name = "Emotes/Anims",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
-})
-
-local cheats = Tab:AddSection({
-	Name = 'Cheats ("im a fucking unskill")'
 })
 
 local emotes = Tab:AddSection({
@@ -41,7 +37,7 @@ emotes:AddDropdown({
 	end    
 })
 
-Tab:AddButton({
+emotes:AddButton({
 	Name = "Start",
 	Callback = function()
       	local animid = nil
